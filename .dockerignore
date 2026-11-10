@@ -1,0 +1,9 @@
+.env*
+.git
+dados/
+backups/
+docs/
+runtime/
+**/__pycache__/
+*.xlsx
+*.xlsm

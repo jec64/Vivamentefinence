@@ -1,0 +1,12 @@
+dados/
+runtime/
+backups/
+.venv/
+__pycache__/
+*.pyc
+*.xlsx
+*.xlsm
+.env
+.env.*
+*.pem
+*.key
