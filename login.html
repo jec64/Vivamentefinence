@@ -1,0 +1,21 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Entrar · VivaMente</title><style>
+*{box-sizing:border-box}body{margin:0;font:15px "Segoe UI",sans-serif;color:#1e1e1e;background:#f4f7fe}main{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}aside{display:grid;align-content:center;padding:10%;background:#1e1e1e;color:#fff}aside strong{font-size:clamp(28px,5vw,72px);letter-spacing:-.04em}aside p{max-width:340px;color:#ddd}section{display:grid;align-content:center;padding:12%}form{display:grid;gap:14px;max-width:400px}label{display:grid;gap:6px;font-weight:600}input,button{font:inherit;width:100%;padding:12px;border-radius:9px;border:1px solid #c6c9d2}button[type=submit]{background:#1e1e1e;color:#fff;border-color:#1e1e1e;font-weight:700;cursor:pointer}.hint{color:#535b6c}#error{color:#a52d25;min-height:20px}@media(max-width:650px){main{grid-template-columns:1fr}aside,section{padding:8%}}
+</style><main><aside><strong>VivaMente</strong><p>Gestão financeira e acompanhamento de repasses da clínica.</p></aside><section><h1>Acesso administrativo</h1><p class="hint">Entre com as credenciais cadastradas.</p><form id="login" method="post" action="/login">
+<label>E-mail<input name="email" type="email" autocomplete="username" maxlength="200" required></label>
+<label>Senha<input name="senha" type="password" autocomplete="current-password" maxlength="128" required></label>
+<button type="submit">Entrar</button><div id="error" role="alert"></div></form></section></main>
+<script>
+const form=document.getElementById("login");
+form.onsubmit=async event=>{
+ event.preventDefault();const button=form.querySelector("button");button.disabled=true;
+ const error=document.getElementById("error");error.textContent="";
+ try{
+  const response=await fetch("/login",{method:"POST",headers:{"Content-Type":"application/json","X-Clinica":"v2"},body:JSON.stringify(Object.fromEntries(new FormData(form)))});
+  if(!response.ok)throw Error((await response.json()).erro);
+  location.replace("/");
+ }catch(e){error.textContent=e.message||"Falha na conexão.";}
+ finally{button.disabled=false;}
+};
+</script></html>
+

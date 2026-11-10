@@ -1,0 +1,598 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VivaMente · Dashboard</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#18322e;background:#f1f6f4;--green:#126759;--line:#d4e2dd}
+[hidden]{display:none!important}*{box-sizing:border-box}body{margin:0}header{background:#153c35;color:white;padding:22px max(20px,calc((100% - 1220px)/2));white-space:nowrap}header small{display:block;letter-spacing:.13em;color:#a3d4c4}h1{margin:5px 0;font-size:28px}h2{margin-top:0}h3{margin:0 0 12px}main,nav{max-width:1260px;margin:auto;padding:18px 20px}nav{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:0}button,input,select{font:inherit;border-radius:7px;padding:8px 10px;border:1px solid #a8c5ba;background:white;color:inherit}button{cursor:pointer;font-weight:650}button.primary,nav button.active{background:var(--green);color:white;border-color:var(--green)}button:hover{filter:brightness(.94)}label{display:grid;gap:4px;font-size:.87rem;font-weight:650}input,select{width:100%;min-width:0}section,.card,.entry{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}.toolbar,.fields{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.fields>label{flex:1;min-width:125px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}.card small{display:block;color:#49645d}.card strong{display:block;font-size:1.45rem;margin-top:6px}.split{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;text-align:left}th,td{padding:9px;border-bottom:1px solid var(--line)}th{font-size:.83rem;background:#eaf3ef}p{line-height:1.45}.hint{color:#49645d;font-size:.89rem}.message:empty{display:none}.message{padding:10px;border-radius:8px;background:#e0f2e8;margin-bottom:12px}.error{background:#fce3df;color:#84251b}.entry{background:#f8fbf9;margin-top:10px}.item{margin:8px 0}.chart{width:100%;height:auto}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.83rem}.legend span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--color);margin-right:5px}a{color:var(--green)}@media(max-width:760px){.split{grid-template-columns:1fr}}@media print{header,nav,.no-print{display:none}body{background:white}main{padding:0}}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/font-0.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/font-1.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/font-2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/font-3.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/font-4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/font-5.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/font-6.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(assets/font-7.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(assets/font-8.ttf) format('truetype');
+}:root{--navy:#1e1e1e;--green:#1e1e1e;--line:#e9edf7;--muted:#a3aed0;color:var(--navy);background:#f4f7fe;font-family:"DM Sans",sans-serif;font-optical-sizing:none;font-variation-settings:"opsz" 14}
+body{margin:0;min-height:100vh}.v2-shell{position:relative;width:1440px;min-height:1024px;margin:0 auto;background:#f4f7fe}.v2-shell aside{position:absolute;inset:0 auto 0 0;width:290px;min-height:1024px;background:white;display:block}.fig-logo{position:relative;height:130px}.logo-tile{position:absolute;left:51px;top:45px;width:44px;height:44px;border-radius:10px;background:#1e1e1e;display:grid;place-items:center}.logo-name{position:absolute;left:101px;top:45px;font:700 26px/39px Poppins,sans-serif}.logo-caption{position:absolute;left:103px;top:75px;font:500 12px/18px Poppins,sans-serif}.fig-line{position:absolute;left:0;bottom:0;display:block}.v2-shell nav{display:block;margin:0;padding:38px 0 0;max-width:none}.nav-group{display:grid;gap:25px}.nav-group button,.nav-bottom button{position:relative;display:flex;align-items:center;gap:12px;width:100%;height:36px;padding:0 0 0 33px;border:0;border-radius:0;background:none;color:#a3aed0;text-align:left;font:500 18px/30px "DM Sans";letter-spacing:-.36px}.nav-group button.active{color:#1e1e1e;font-weight:700;background:transparent}.nav-group button.active:after{content:"";position:absolute;right:4px;top:0;width:4px;height:36px;background:#292c3e;border-radius:25px}.nav-divider{position:relative;margin:79px 0 53px;text-align:center;color:#a3aed0;font:400 12px/18px Poppins}.nav-divider img{position:absolute;top:0;left:0}.nav-bottom{position:absolute;top:931px;left:0;right:0;display:grid;gap:9px}.nav-bottom button:last-child{color:#1e1e1e}.nav-bottom button:last-child img{margin-right:4px}.v2-shell main{width:1150px;max-width:none;margin:0 0 0 290px;padding:47px 0 51px 30px}.dash-header{width:1083px;height:66px;display:flex;justify-content:space-between;align-items:end;margin:0 0 33px}.eyebrow{display:block;color:#707eae;font-size:14px;font-weight:700;line-height:24px;letter-spacing:-.28px}.dash-header h2{margin:0;color:#1e1e1e;font-size:34px;font-weight:700;line-height:42px;letter-spacing:-.68px}.period{display:flex;align-items:center;width:368px;height:42px;border-radius:22px;background:#fff;gap:0;font:500 16px/24px Roboto,sans-serif;letter-spacing:.5px;color:#a3aed0}.period label{display:flex;position:relative;align-items:center;gap:9px;height:100%;padding:0 10px;white-space:nowrap;cursor:pointer;font:inherit}.period label:first-child{flex:1}.period label:nth-child(2){padding-left:0}.period input{position:absolute;inset:0;opacity:0;cursor:pointer;min-width:0;width:100%;height:100%;padding:0}.period label:focus-within{outline:2px solid #707eae;border-radius:20px}.period button{width:106px;height:42px;border:0;border-radius:22px;background:#1e1e1e;font:inherit;color:white}.doctor-chip{font-size:12px;color:#707eae;position:absolute;top:118px}
+.dash-grid{display:grid;gap:20px;width:1108px}.dash-top,.dash-mid,.dash-bottom{display:grid;gap:20px}.dash-top{grid-template-columns:268px 266px 257px 257px}.dash-mid{grid-template-columns:720px 350px}.dash-bottom{grid-template-columns:repeat(3,350px)}.dash-card{position:relative;background:white;border:0;border-radius:20px;padding:0;margin:0;min-width:0;overflow:hidden;height:345px}.dash-kpi{height:97px}.dash-kpi .kpi-icon{position:absolute;left:17px;top:20px;display:grid;place-items:center;width:56px;height:56px;border-radius:50%}.dash-kpi .kpi-text{position:absolute;left:91px;top:20px}.dash-kpi:first-child .kpi-text{top:23px}.dash-kpi:first-child .dash-label{font-weight:700;font-size:16px;line-height:28px}.dash-kpi:first-child strong{font-size:18px;line-height:30px}.dash-kpi:nth-child(2) .kpi-text{left:15px;top:17px}.dash-label{color:#a3aed0;font-size:14px;font-weight:500;line-height:24px;letter-spacing:-.28px}.dash-kpi strong{display:block;font-weight:700;font-size:24px;line-height:32px;letter-spacing:-.48px;white-space:nowrap}.kpi-overlay{position:absolute;inset:0;display:grid;place-items:center}.kpi-overlay .shape{position:relative;width:28px;height:28px}.shape img{position:absolute}.spark{position:absolute;left:194px;top:37px}.spark-mini{position:absolute;right:23px;bottom:25px;display:flex;gap:7px;align-items:end;height:43px}.spark-mini span{position:relative;width:7px;height:100%;background:#e9edf7;border-radius:6px;display:flex;align-items:end}.spark-mini i{width:100%;background:#28c454;border-radius:6px}.spark-mini span:last-child i{background:#ff4056}
+.chart-title{position:absolute;top:28px;left:31px;font-weight:700}.chart-value{position:absolute;left:31px;top:51px;display:flex;align-items:baseline;gap:14px}.dash-number{color:#1e1e1e;font-weight:700;font-size:34px;line-height:42px;letter-spacing:-.68px}.chart-caption{color:#111;font:600 14px/20px Roboto,sans-serif}.chart-icon{position:absolute;right:32px;top:28px;width:33px;height:33px;background:#f4f7fe;border-radius:7px;display:grid;place-items:center}.chart-guide{position:absolute;left:35px;top:123px;display:flex;align-items:center;gap:6px;font-size:12px}.chart-guide img{display:block}.monthly{position:absolute;inset:123px 34px 25px 35px;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;align-items:end}.month{display:grid;grid-template-rows:161px 25px;gap:6px;align-items:end;text-align:left}.month .bar{width:35px;background:#e9edf7;border-radius:8px}.month .bar.peak{background:#1e1e1e}.month small{width:35px;text-align:center;color:#a3aed0;font-size:12px;font-weight:700;line-height:20px;white-space:nowrap}.month .bar[style="height:0%"]{visibility:hidden}
+.rank-card h3{position:absolute;top:16px;left:0;right:0;text-align:center;font-size:20px;font-weight:700;line-height:32px;letter-spacing:-.4px}.rank-list{position:absolute;left:46px;right:25px;top:65px;display:grid;gap:16px;max-height:218px;overflow:auto}.rank-row{border:0;background:white;padding:0;display:flex;align-items:center;gap:13px;text-align:left;min-height:42px;color:#1e1e1e}.rank-row .avatar{display:grid;place-items:center;width:32px;height:34px;flex:none;background:#f4f7fe;border-radius:50%;overflow:hidden;font-size:12px}.avatar img{display:block}.rank-row strong,.mini-row strong{display:block;font-size:14px;line-height:24px;font-weight:700;letter-spacing:-.28px}.rank-row small,.mini-row small{display:block;color:#a3aed0;font-size:12px;line-height:20px;letter-spacing:-.24px}.rank-row .row-value{margin-left:auto;min-width:49px;padding:3px 7px;background:#e2f9f3;color:#05b98b;border-radius:7px;text-align:center;font-size:14px;font-weight:700}.rank-footer{position:absolute;right:25px;bottom:24px}.rank-footer button{display:flex;align-items:center;gap:9px;background:transparent;border:0;padding:0;font-size:16px;font-weight:700}.rank-arrow{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#1e1e1e;transform:rotate(180deg)}.rank-arrow img{filter:brightness(0) invert(1)}
+.bottom-label{position:absolute;top:23px;left:28px}.bottom-number{position:absolute;top:48px;left:28px}.trend-tag{position:absolute;right:25px;top:23px;display:flex;align-items:center;color:#05cd99;font-size:12px;line-height:20px;font-weight:700}.trend-tag.down{color:#bf4961}.trend-tag.down img{transform:rotate(180deg);filter:hue-rotate(145deg)}.mini-list{position:absolute;top:115px;left:22px;right:25px;display:grid;gap:17px;max-height:230px;overflow:auto}.mini-row{display:flex;align-items:center;gap:11px;min-height:44px}.mini-row .list-icon{position:relative;display:grid;place-items:center;width:42px;height:42px;flex:none}.list-icon .overlay{position:absolute;inset:0;display:grid;place-items:center}.mini-row .row-value{margin-left:auto;font-size:14px;font-weight:700}.mini-row.orange strong,.mini-row.orange .row-value{color:#ff8d28}.micro{position:absolute;bottom:31px;left:32px;right:29px;height:145px;display:flex;justify-content:space-between;align-items:end}.micro span{display:flex;align-items:end;width:16px;height:100%;border-radius:9px;background:#e9edf7}.micro i{display:block;width:100%;border-radius:9px;background:#1e1e1e}.dash-empty{color:#707eae;font-size:14px}.secondary-panel{height:auto;padding:20px;width:1090px;margin-top:32px}.secondary-panel .dash-head{display:flex;justify-content:space-between;align-items:center}.secondary-panel .secondary-panel{width:auto;padding:0}.dash-action{border-radius:20px}.fig-img{display:block;flex:none}
+@media print{.v2-shell{zoom:1!important;width:auto}.v2-shell aside{display:none}.v2-shell main{margin:0}}
+@media screen and (max-width:700px){.v2-shell{width:100%;min-height:100vh}.v2-shell aside{position:static;width:auto;min-height:0}.fig-logo{height:95px}.logo-tile{left:18px;top:24px}.logo-name{left:68px;top:23px}.logo-caption{left:70px;top:54px}.fig-line,.nav-divider,.nav-bottom,.nav-group:nth-of-type(3){display:none}.v2-shell nav{padding:0 8px 10px}.nav-group{display:flex;gap:2px;overflow:auto}.nav-group button{width:auto;flex:none;padding:0 7px;gap:5px;font-size:13px}.nav-group button.active:after{display:none}.v2-shell main{width:auto;margin:0;padding:20px 12px}.dash-header{width:auto;height:auto;align-items:start;flex-direction:column;gap:12px;margin-bottom:17px}.period{max-width:100%;font-size:12px}.period button{width:75px}.dash-grid{width:auto;gap:12px}.dash-top,.dash-mid,.dash-bottom{gap:12px;grid-template-columns:minmax(0,1fr)}.dash-mid>section:first-child{overflow:auto}.monthly{min-width:550px}.chart-guide{display:none}.secondary-panel{width:auto}}
+/* Layout fluido do navegador */
+:root{--muted:#667184}
+.v2-shell{width:100%;max-width:none;min-height:100vh;display:grid;grid-template-columns:clamp(190px,15vw,290px) minmax(0,1fr)}
+.v2-shell aside{position:sticky;top:0;align-self:start;width:auto;height:100vh;min-height:0;overflow:auto}
+.v2-shell main{width:auto;margin:0;padding:clamp(18px,3vw,50px);min-width:0}
+.v2-shell .fig-logo{height:114px;display:flex;align-items:center;gap:8px;padding:22px}
+.logo-tile,.logo-name,.logo-caption{position:static}.logo-tile{flex:none}.logo-name{font-size:clamp(17px,1.4vw,26px)}.logo-caption{line-height:1}
+.nav-bottom{position:static;margin-top:28px;padding-bottom:14px}.nav-divider{margin:34px 0 20px}.nav-divider img,.fig-line{width:100%;height:1px}.nav-group{gap:8px}.nav-group button,.nav-bottom button{font-size:15px;padding-left:22px}.nav-group button img,.nav-bottom img,.logo-tile img,.chart-icon img,.rank-arrow img{filter:grayscale(1)}
+.dash-header,.dash-grid,.secondary-panel{width:100%}.dash-header{height:auto;flex-wrap:wrap;gap:14px}.dash-top{grid-template-columns:repeat(4,minmax(0,1fr))}.dash-mid{grid-template-columns:minmax(0,2fr) minmax(230px,1fr)}.dash-bottom{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dash-kpi{display:flex;gap:12px;align-items:center;padding:14px;min-height:104px;height:auto}.dash-kpi .kpi-icon,.dash-kpi .kpi-text,.dash-kpi:first-child .kpi-text,.dash-kpi:nth-child(2) .kpi-text{position:relative;inset:auto;min-width:0;z-index:1}.dash-kpi .kpi-icon{flex:none}.dash-kpi strong{font-size:clamp(16px,1.45vw,26px);white-space:normal;overflow-wrap:anywhere}.spark,.spark-mini{opacity:.55;z-index:0}.spark{right:12px;left:auto}.chart-guide{right:24px}.chart-guide img{width:auto;min-width:0;flex:1;height:1px;object-fit:fill}.monthly{min-width:0;gap:4px}.month .bar,.month small{width:min(35px,80%)}.rank-list{left:18px;right:18px}.rank-card h3{font-size:clamp(14px,1.2vw,20px)}.rank-row .avatar img,.doctor-photo img{width:100%;height:100%;object-fit:cover}.dash-label,.rank-row small,.mini-row small,.period{color:#667184}
+.profile-tools{display:flex;gap:8px;margin:-16px 0 16px}.wizard{display:grid;gap:14px;margin-bottom:22px}.wizard-step{padding:18px;border:1px solid #e3e6ee;border-radius:19px;margin:0}.wizard-step h3{display:flex;align-items:center;gap:10px;margin:0}.step-dot{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#1e1e1e;color:#fff;font-size:14px}.wizard-step[data-locked=true]{opacity:.59}.wizard-content{margin-top:16px}.step1-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}.dark-choice{background:#1e1e1e;color:white;padding:16px;border-radius:16px;min-width:0}.doctor-choices{display:grid;gap:7px;max-height:220px;overflow:auto}.doctor-choice{display:flex;align-items:center;gap:9px;background:#303030;color:#fff;border:1px solid transparent;text-align:left}.doctor-choice[aria-pressed=true]{border-color:#f3f3f3;background:#474747}.doctor-choice small{display:block;font-size:11px;color:#ddd}.doctor-photo{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;overflow:hidden;background:#e9ebf0;color:#1e1e1e;flex:none;font-size:13px}.doctor-choice .doctor-photo{width:34px;height:34px}.doctor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:14px}.doctor-card{display:grid;gap:10px;background:#fff;padding:17px;border-radius:16px;border:1px solid #e9ebf1}.doctor-card h3{margin:0}.doctor-card .doctor-photo{width:54px;height:54px}.specialties{display:flex;flex-wrap:wrap;gap:10px}.specialties label{display:flex;align-items:center;gap:4px}.specialties input{width:auto}.form-error{color:#9f332b}.clinic-total{background:#fef4e3;color:#935417}.doctor-total{background:#e6f7ee;color:#146343}.clinic-total small,.doctor-total small{color:inherit}.registry .scroll{max-height:420px}.registry thead{position:sticky;top:0}.registry-footer{display:flex;justify-content:space-between;align-items:center;gap:10px}.audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.audit-grid .scroll{max-height:460px}
+@media(max-width:1150px){.dash-top{grid-template-columns:repeat(2,minmax(0,1fr))}.dash-bottom{grid-template-columns:repeat(2,minmax(0,1fr))}.spark,.spark-mini{display:none}}
+@media(max-width:850px){.v2-shell{display:block}.v2-shell aside{position:static;height:auto;overflow:visible}.v2-shell .fig-logo{height:74px}.v2-shell nav{padding:6px 10px;display:flex;overflow:auto}.nav-group,.nav-bottom{display:flex;gap:4px;margin:0;padding:0}.nav-group button,.nav-bottom button{padding:0 7px;white-space:nowrap;font-size:13px}.nav-divider,.nav-group:nth-of-type(3){display:none}.v2-shell main{padding:18px}.step1-layout,.audit-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.dash-mid,.dash-bottom{grid-template-columns:1fr}.dash-top{gap:8px}.dash-kpi{padding:9px}.dash-kpi .kpi-icon{display:none}.dash-header .period{max-width:100%;width:auto}.chart-caption{font-size:11px}.monthly{left:12px;right:12px}.chart-guide{display:none}}
+@media print{.v2-shell{display:block}.v2-shell aside{display:none}.v2-shell main{padding:0}body.dashboard-only main{display:none}body.dashboard-only::before{content:"Abra Relatórios para imprimir o relatório de repasses."}}
+.dark-choice input,.dark-choice select,.dark-choice option{color:#1e1e1e;background:#fff;color-scheme:light;-webkit-text-fill-color:#1e1e1e}.dark-choice label+label{margin-top:12px}.dark-choice :is(input,select):focus-visible{outline:2px solid #7dc7f4;outline-offset:2px}
+.report-actions{position:sticky;top:0;z-index:1;background:white;padding:8px 0;margin:0 0 12px}.page-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 18px}.chart-readout{position:absolute;left:31px;right:30px;top:96px;font-size:12px;font-weight:700;color:#1e1e1e}.month{border:0;border-radius:0;background:transparent;padding:0;min-width:0;width:100%;font:inherit}.month .bar.current{background:#227bba}.month .bar.current[style="height:0%"]{visibility:visible;min-height:3px}.month:focus-visible{outline:2px solid #227bba;outline-offset:2px}
+</style>
+<div class="v2-shell"><aside><div class="fig-logo"><span class="logo-tile"><img alt="" src="assets/sidebar-imgGroup51.svg"></span><strong class="logo-name">VivaMente</strong><span class="logo-caption">Financeiro</span><img class="fig-line" alt="" src="assets/sidebar-imgLine16.svg"></div><nav id="nav" aria-label="Navegação"></nav></aside>
+<main><div id="message" class="message" role="status"></div><div id="page"></div></main></div>
+<script>
+"use strict";
+const token="__TOKEN__", $=id=>document.getElementById(id), page=$("page");
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(n/100);
+const dateLabel=d=>d.split("-").reverse().join("/");
+const today=()=>new Intl.DateTimeFormat("sv-SE",{timeZone:"America/Sao_Paulo"}).format(new Date());
+const types=["Particular","Convênio","Cortesia","Retorno"];
+let data={}, view="Painel", group="Medicos", filters={medico:"",inicio:"",fim:""};
+const tabs=["Painel","Registrar","Cadastros","Tarifas","Pagamentos","Relatório médico"];
+const names={Medicos:"Médicos",Especialidades:"Especialidades",Modalidades:"Modalidades",Servicos:"Procedimentos"};
+const label=(text,input)=>'<label>'+text+input+'</label>';
+const input=(name,value="",type="text",attrs="")=>'<input name="'+name+'" type="'+type+'" value="'+esc(value)+'" '+attrs+'>';
+const option=(value,name,current)=>'<option value="'+esc(value)+'" '+(value===current?'selected':'')+'>'+esc(name)+'</option>';
+const select=(name,table,current="",blank="Selecione")=>'<select name="'+name+'">'+option("",blank,current)+(data[table]||[]).map(r=>option(r.id,r.nome,current)).join("")+'</select>';
+const nameOf=(table,id,empty="—")=>(data[table]||[]).find(r=>r.id===id)?.nome||empty;
+const card=(name,value)=>'<div class="card"><small>'+esc(name)+'</small><strong>'+esc(value)+'</strong></div>';
+const table=(headers,rows)=>'<div class="scroll"><table><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join("")+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>'<td>'+c+'</td>').join("")+'</tr>').join("")+(rows.length?'':'<tr><td colspan="'+headers.length+'">Nenhum registro.</td></tr>')+'</tbody></table></div>';
+function pagedTable(headers,rows,key,pages){
+ if(!pages||rows.length<=15)return table(headers,rows);
+ const offset=(pages[key]||0)*15;
+ return table(headers,rows.slice(offset,offset+15))+'<div class="page-controls no-print"><span>'+ (offset+1)+'–'+Math.min(offset+15,rows.length)+' de '+rows.length+'</span><div><button data-page="'+key+'" data-dir="-1" '+(!offset?"disabled":"")+'>Anterior</button> <button data-page="'+key+'" data-dir="1" '+(offset+15>=rows.length?"disabled":"")+'>Próxima</button></div></div>';
+}
+function bindPages(target,pages,draw){
+ target.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{
+  const {page:key,dir}=b.dataset;
+  pages[key]=(pages[key]||0)+Number(dir);draw();
+  const buttons=[...target.querySelectorAll("[data-page]")].filter(x=>x.dataset.page===key);
+  (buttons.find(x=>!x.disabled&&x.dataset.dir===dir)||buttons.find(x=>!x.disabled))?.focus();
+ });
+}
+const fields=form=>Object.fromEntries(new FormData(form));
+function message(text="",error=false){$("message").textContent=text;$("message").className="message"+(error?" error":"");}
+async function api(path,body){
+ const options=body?{method:"POST",headers:{"Content-Type":"application/json","X-Clinica":token},body:JSON.stringify(body)}:{};
+ const response=await fetch(path,options), result=await response.json();
+ if(response.status===401&&token==="v2"){location.replace("/login");throw Error("Sessão encerrada.");}
+ if(!response.ok)throw Error(result.erro);
+ return result;
+}
+async function save(tabela,dados){return api("/salvar",{tabela,dados});}
+function submit(form,action){
+ form.onsubmit=async e=>{
+  e.preventDefault();const button=form.querySelector('button[type="submit"]');button.disabled=true;
+  try{await action();message("Registro salvo com sucesso.");}catch(e){message(e.message,true);}finally{button.disabled=false;}
+ };
+}
+function navigate(next){
+ document.body.classList.toggle("dashboard-only",next==="Painel");
+ view=next;message();
+ $("nav").innerHTML=navMarkup();
+ $("nav").querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{
+  if(b.dataset.view==="Financeiro"){navigate("Pagamentos");return;}
+  
+  navigate(b.dataset.view);
+ });
+ Promise.resolve(render()).catch(e=>message(e.message,true));
+}
+async function render(){
+ if(view==="Painel")return overview();
+ if(view==="Segurança")return audit();
+ if(view==="Configurações")return settings();
+ if(view==="Relatório médico")return panel();
+ if(view==="Registrar")return register();
+ if(view==="Cadastros")return catalog(); if(view==="Tarifas")return tariffs();
+ payment();
+}
+function dateForm(){
+ return '<section class="no-print"><form id="filter" class="toolbar">'+label("Médico",select("medico","Medicos",filters.medico,"Todos os médicos"))+
+ label("De",input("inicio",filters.inicio,"date"))+label("Até",input("fim",filters.fim,"date"))+
+ '<button class="primary" type="submit">Gerar relatório</button><button type="button" id="allDates">Todo o período</button></form></section>';
+}
+const metrics=r=>card("Atendimentos",Object.values(r.contagem).reduce((a,b)=>a+b,0))+card("Faturamento bruto",money(r.total))+card("Média por atendimento",money(r.media))+
+ types.map(t=>card(t,r.contagem[t]||0)).join("");
+function lines(r,pages){
+ return pagedTable(["Data","Médico","Paciente","Modalidade","Tipo","Procedimento","Quantidade","Valor bruto","Repasse","Parcela clínica"],
+ r.linhas.map(x=>[dateLabel(x.data),esc(nameOf("Medicos",x.medico)),esc(x.paciente||"—"),esc(x.modalidade_nome),esc(x.tipo),esc(x.servicos),x.quantidade,money(x.valor),money(x.repasse),money(x.clinica)]),"dashboard",pages);
+}
+const reportTypes=["Convênio","Particular","Retorno","Cortesia"];
+function reportMarkup(r, period,pages){
+ const summary=r.medico?"":'<h3>Resumo por médico</h3>'+pagedTable(["Médico","Total de consultas",...reportTypes,"Repasse"],
+  r.profissionais.map(p=>[esc(p.medico),p.quantidade,...reportTypes.map(t=>p.contagem[t]),money(p.repasse)]),"summary",pages);
+ const details=pagedTable(["Data",...(r.medico?[]:["Médico"]),"Paciente","Modalidade","Tipo","Procedimento","Quantidade","Repasse"],
+  r.linhas.map(x=>[dateLabel(x.data),...(r.medico?[]:[esc(x.medico)]),esc(x.paciente||"—"),esc(x.modalidade_nome),esc(x.tipo),esc(x.servicos),x.quantidade,money(x.repasse)]),"detail",pages);
+ return '<h2>'+esc(r.medico||"Relatório geral")+'</h2><p class="hint">'+esc(period)+'</p><div class="cards">'+
+  card("Total de consultas",r.quantidade)+card("Repasse total",money(r.repasse))+
+  reportTypes.map(t=>card(t,r.contagem[t])).join("")+'</div>'+summary+'<h3>Atendimentos detalhados</h3>'+details;
+}
+function graph(trend){
+ const rows=Object.entries(trend);if(!rows.length)return '<p class="hint">Sem dados no período.</p>';
+ const colors=["#087664","#4b73b7","#bd6941"], captions=["Bruto","Repasse","Parcela clínica"];
+ const values=rows.flatMap(x=>x[1]), hi=Math.max(1,...values), lo=Math.min(0,...values);
+ const x=i=>rows.length===1?400:70+i*680/(rows.length-1),y=v=>25+(hi-v)*145/(hi-lo);
+ const guides=[hi,(hi+lo)/2,lo].map(v=>'<line x1="70" x2="750" y1="'+y(v)+'" y2="'+y(v)+'" stroke="#d4e2dd"/><text x="65" y="'+(y(v)+4)+'" text-anchor="end" font-size="10">'+esc(money(v))+'</text>').join("");
+ const series=colors.map((c,j)=>'<polyline fill="none" stroke="'+c+'" stroke-width="2.5" points="'+rows.map((r,i)=>x(i)+','+y(r[1][j])).join(" ")+'"/>'+rows.map((r,i)=>'<circle cx="'+x(i)+'" cy="'+y(r[1][j])+'" r="3" fill="'+c+'"><title>'+esc(r[0]+" · "+captions[j]+" · "+money(r[1][j]))+'</title></circle>').join("")).join("");
+ const labels=rows.map((r,i)=>i%Math.ceil(rows.length/7)===0?'<text x="'+x(i)+'" y="197" text-anchor="middle" font-size="11">'+esc(r[0])+'</text>':"").join("");
+ return '<svg class="chart" viewBox="0 0 780 208" role="img" aria-label="Evolução financeira mensal">'+guides+series+labels+'</svg><div class="legend">'+colors.map((c,j)=>'<span style="--color:'+c+'">'+captions[j]+'</span>').join("")+'</div>';
+}
+async function panel(){
+ const shared=view==="Relatório médico", current=view;
+ page.innerHTML='<h2 class="no-print">'+(shared?"Relatórios":view)+'</h2>'+dateForm()+'<div id="result"></div>';
+ const result=$("result");
+ $("allDates").onclick=()=>{const form=$("filter");form.elements.inicio.value=form.elements.fim.value="";form.requestSubmit();};
+ $("filter").onsubmit=e=>{e.preventDefault();filters=fields(e.currentTarget);panel().catch(e=>message(e.message,true));};
+ const q=new URLSearchParams(filters), r=await api((shared?"/relatorio?":"/painel?")+q);
+ if(current!==view||!result.isConnected)return;
+ if(shared){
+  const period=(filters.inicio?dateLabel(filters.inicio):"Início da base")+" a "+(filters.fim?dateLabel(filters.fim):"Último registro");
+  const pages={};
+  function draw(){
+   result.innerHTML='<section><div class="report-actions no-print"><button id="export" class="primary">Imprimir / salvar PDF completo</button></div>'+reportMarkup(r,period,pages)+'</section>';
+   $("export").onclick=()=>exportReport(reportMarkup(r,period));
+   bindPages(result,pages,draw);
+  }
+  draw();
+  return;
+ }
+ const filtered=filters.medico;
+ result.innerHTML=(filtered?'<h3>'+esc(nameOf("Medicos",filtered))+'</h3>':'')+'<div class="cards">'+metrics(r)+card("Repasse calculado",money(r.repasse))+card("Parcela da clínica",money(r.clinica))+card("Pago no período",money(r.pago))+'</div>'+
+ '<div class="split"><section><h3>Evolução mensal</h3>'+graph(r.evolucao)+'</section><section><h3>Ranking de atendimentos</h3>'+table(["Médico","Atendimentos"],r.ranking.map(([id,n])=>['<button data-doctor="'+esc(id)+'">'+esc(nameOf("Medicos",id))+'</button>',n]))+'</section></div>'+
+ (filtered?'<section><h3>Atendimentos detalhados</h3>'+lines(r)+'</section>':'')+
+ '<section><h3>Pagamentos registrados</h3>'+table(["Data","Médico","Valor","Referência"],r.pagamentos.map(p=>[dateLabel(p.data),esc(nameOf("Medicos",p.medico)),money(p.valor),esc(p.referencia)]))+'</section>';
+ result.insertAdjacentHTML("afterbegin", '<p class="no-print"><button id="printAdmin">Abrir relatório de repasses</button></p>');
+ $("printAdmin").onclick=()=>navigate("Relatório médico");
+ result.querySelectorAll("[data-doctor]").forEach(b=>b.onclick=()=>openDoctor(b.dataset.doctor));
+}
+function exportReport(markup){
+ const win=window.open("","_blank");
+ if(!win){message("Permita janelas pop-up para abrir o relatório.",true);return;}
+ win.opener=null;
+ win.document.write('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Relatório de repasses</title><style>body{font:13px system-ui;margin:24px;color:#173a32}table{border-collapse:collapse;width:100%;margin-bottom:20px}td,th{text-align:left;padding:7px;border-bottom:1px solid #ddd}thead{display:table-header-group}tr{break-inside:avoid}.cards{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px}.card small,.card strong{display:block}h3{break-after:avoid}@media print{button{display:none}}</style><h1>Relatório de repasses</h1>'+markup+'<p><button type="button">Imprimir / salvar em PDF</button></p></html>');
+ win.document.close();
+ const printButton=win.document.querySelector("button");
+ if(printButton)printButton.onclick=()=>win.print();
+}
+function openDoctor(id){filters={...filters,medico:id};navigate("Painel");}
+const doctorSpecs=d=>(d?.especialidades||d?.especialidade||"").split(",").filter(Boolean);
+const doctorPhoto=d=>'<span class="doctor-photo">'+(/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(d?.foto||"")?'<img alt="" src="'+esc(d.foto)+'">':esc((d?.nome||"?").split(" ").slice(0,2).map(n=>n[0]).join("").toUpperCase()))+'</span>';
+const specNames=d=>doctorSpecs(d).map(id=>nameOf("Especialidades",id)).join(" · ");
+const decimalField=v=>typeof v==="number"?(v/100).toFixed(2):"";
+const readMoney=v=>/^\d+(?:[.,]\d{1,2})?$/.test(v.trim())?Math.round(Number(v.trim().replace(",","."))*100):NaN;
+function register(row={}){
+ const editing=Boolean(row.id);
+ const step=(n,title,body)=>'<section class="wizard-step" id="stage'+n+'"><h3><span class="step-dot">'+n+'</span>'+title+'</h3><div class="wizard-content" id="body'+n+'">'+body+'</div></section>';
+ const choices=data.Medicos.map(d=>'<button class="doctor-choice" type="button" data-choice="'+esc(d.id)+'">'+doctorPhoto(d)+'<span><strong>'+esc(d.nome)+'</strong><small>'+esc(specNames(d))+'</small></span></button>').join("");
+ const modes='<select name="tipo">'+option("","Selecione",row.tipo||"")+types.map(t=>option(t,t,row.tipo)).join("")+'</select>';
+ page.innerHTML='<h2>'+(editing?"Editar lançamento":"Registrar atendimento")+'</h2><form id="production" class="wizard" novalidate>'+input("id",row.id,"hidden")+input("medico",row.medico||filters.medico,"hidden")+
+ step(1,"Dados do atendimento",'<div class="step1-layout"><div class="dark-choice"><h4>Selecione o profissional</h4><div class="doctor-choices">'+(choices||'<p>Cadastre um profissional primeiro.</p>')+'</div><div id="specialty"></div></div><div class="dark-choice">'+label("Data do atendimento",input("data",row.data||today(),"date", "required"))+
+ label("Modalidade",modes)+label("Convênio",'<select name="modalidade">'+option("","Selecione","")+data.Modalidades.filter(x=>x.tipo==="Convênio").map(x=>option(x.id,x.nome,row.modalidade)).join("")+'</select>')+'</div></div><p><button type="button" class="primary" id="next1">Continuar</button> '+(editing?'<button type="button" id="cancelEdit">Cancelar edição</button>':'')+'</p>')+
+ step(2,"Procedimento e valores",'<div class="fields">'+label("Procedimento",select("servico","Servicos",row.servico))+label("Quantidade",input("quantidade",row.quantidade||1,"number","min=1 max=1000000 step=1 required"))+
+ label("Valor unitário (R$)",input("unitario",decimalField(row.unitario),"text","inputmode=decimal"))+label("Valor unitário da clínica (R$)",input("clinica_unitario",decimalField(row.clinica_unitario),"text","inputmode=decimal"))+'</div><p id="priceHint" class="hint"></p><div class="cards" id="productionTotals"></div><button type="button" id="back2">Voltar</button> <button type="button" class="primary" id="next2">Revisar</button>')+
+ step(3,"Confirmar lançamento",'<p id="confirmDetails"></p><div id="confirmTotals" class="cards"></div><button type="button" id="back3">Voltar</button> <button type="submit" class="primary">'+(editing?"Salvar alterações":"Salvar lançamento")+'</button>')+
+ '</form>'+(editing?'':'<section class="registry"><h3>Lançamentos registrados</h3><div id="registered">Carregando…</div></section>');
+ const form=$("production"), f=form.elements;
+ let active=1, unit, request=0, selectedSpec=row.especialidade, previousType=row.tipo;
+ function show(n){active=n;message();for(let i=1;i<=3;i++){ $("body"+i).hidden=i!==n;$("stage"+i).dataset.locked=String(i>n);}}
+ function syncDoctor(){
+  const doc=data.Medicos.find(d=>d.id===f.medico.value);
+  const specs=doctorSpecs(doc);
+  if(!specs.includes(selectedSpec))selectedSpec=specs[0]||"";
+  $("specialty").innerHTML=specs.length>1?label("Especialidade deste atendimento",'<select name="especialidade">'+specs.map(id=>option(id,nameOf("Especialidades",id),selectedSpec)).join("")+'</select>'):input("especialidade",selectedSpec,"hidden");
+  f.especialidade.onchange=()=>{selectedSpec=f.especialidade.value;};
+  form.querySelectorAll("[data-choice]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.choice===f.medico.value)));
+ }
+ function isFree(){return ["Retorno","Cortesia"].includes(f.tipo.value);}
+ function isPrivate(){return f.tipo.value==="Particular";}
+ function syncMode(){
+  const insured=f.tipo.value==="Convênio";
+  f.modalidade.closest("label").hidden=!insured; f.modalidade.disabled=!insured;
+  if(!insured)f.modalidade.value="";
+  if(previousType!==f.tipo.value){previousType=f.tipo.value;f.unitario.value="";f.clinica_unitario.value=isFree()?"0,00":"";}
+  f.unitario.readOnly=!isPrivate(); f.clinica_unitario.readOnly=isFree();
+ }
+ function values(){
+  const qty=Number(f.quantidade.value), gross=isFree()?0:isPrivate()?readMoney(f.unitario.value):unit;
+  const clinic=isFree()?0:readMoney(f.clinica_unitario.value);
+  return {qty,gross,clinic,valid:f.quantidade.checkValidity()&&Number.isFinite(gross)&&Number.isFinite(clinic)&&clinic<=gross};
+ }
+ function totals(){
+  const {qty,gross,clinic,valid}=values();
+  return card("Total bruto",Number.isFinite(gross)&&f.quantidade.checkValidity()?money(qty*gross):"—")+
+   card("Total da clínica",valid?money(qty*clinic):"—").replace('class="card"','class="card clinic-total"')+
+   card("Repasse ao profissional",valid?money(qty*(gross-clinic)):"—").replace('class="card"','class="card doctor-total"');
+ }
+ function preview(){
+  if(!isPrivate())f.unitario.value=isFree()?money(0):typeof unit==="number"?money(unit):"";
+  $("productionTotals").innerHTML=totals();
+ }
+ async function quoteProcedure(){
+  const seq=++request;unit=undefined;$("priceHint").textContent="";preview();
+  if(isFree()||isPrivate()||!f.servico.value)return;
+  const keys=["id","medico","especialidade","tipo","modalidade","servico"];
+  try{
+   const q=await api("/cotacao?"+new URLSearchParams(keys.map(k=>[k,f[k].value])));
+   if(form.isConnected&&seq===request){unit=q.unitario;preview();}
+  }catch(e){if(form.isConnected&&seq===request)$("priceHint").textContent=e.message;}
+ }
+ form.querySelectorAll("[data-choice]").forEach(b=>b.onclick=()=>{f.medico.value=b.dataset.choice;syncDoctor();});
+ f.tipo.onchange=syncMode;f.servico.onchange=quoteProcedure;
+ for(const k of ["quantidade","unitario","clinica_unitario"])f[k].oninput=preview;
+ syncDoctor();syncMode();show(1);preview();
+ $("next1").onclick=()=>{
+  if(!f.medico.value||!f.especialidade.value||!f.data.checkValidity()||!f.tipo.value||(f.tipo.value==="Convênio"&&!f.modalidade.value)){message("Preencha profissional, especialidade, data e modalidade.",true);return;}
+  show(2);quoteProcedure();f.servico.focus();
+ };
+ $("next2").onclick=()=>{
+  if(!f.servico.value||!values().valid){message("Confira o procedimento, a quantidade e os valores. O unitário da clínica não pode superar o bruto.",true);return;}
+  $("confirmDetails").textContent=[nameOf("Medicos",f.medico.value),nameOf("Especialidades",f.especialidade.value),dateLabel(f.data.value),nameOf("Servicos",f.servico.value),f.tipo.value].join(" · ");
+  $("confirmTotals").innerHTML=totals();show(3);
+ };
+ $("back2").onclick=()=>show(1);$("back3").onclick=()=>show(2);
+ if(editing)$("cancelEdit").onclick=()=>register();else loadRegistered($("registered"));
+ submit(form,async()=>{if(active!==3)throw Error("Revise o lançamento antes de salvar.");await save("producao",fields(form));if(form.isConnected)register();});
+}
+async function loadRegistered(target){
+ try{
+  const rows=await api("/lancamentos");if(!target.isConnected)return;
+  let offset=0;const size=10;
+  function renderRows(){
+   const shown=rows.slice(offset,offset+size);
+   target.innerHTML='<div class="cards">'+card("Lançamentos",rows.length)+card("Consultas",rows.reduce((n,r)=>n+r.quantidade,0))+card("Repasses",money(rows.reduce((n,r)=>n+r.repasse,0)))+'</div>'+
+    table(["Data","Profissional","Especialidade","Modalidade","Qtd.","Repasse","Ações"],shown.map(r=>[
+     dateLabel(r.data),esc(nameOf("Medicos",r.medico)),esc(r.especialidade_nome||"—"),esc(r.modalidade_nome),r.quantidade,money(r.repasse),
+     (r.editavel?'<button data-edit="'+esc(r.id)+'">Editar</button> ':'')+'<button data-delete="'+esc(r.id)+'">Excluir</button>']))+
+    '<div class="registry-footer"><span>'+String(rows.length?offset+1:0)+'–'+Math.min(offset+size,rows.length)+' de '+rows.length+'</span><div><button id="olderBack" '+(!offset?"disabled":"")+'>Anterior</button> <button id="olderNext" '+(offset+size>=rows.length?"disabled":"")+'>Próxima</button></div></div>';
+   $("olderBack").onclick=()=>{offset-=size;renderRows();};$("olderNext").onclick=()=>{offset+=size;renderRows();};
+   target.querySelectorAll("[data-edit]").forEach(b=>b.onclick=async()=>{b.disabled=true;try{const row=await api("/lancamentos?"+new URLSearchParams({id:b.dataset.edit}));if(target.isConnected){register(row);window.scrollTo(0,0);}}catch(e){message(e.message,true);}finally{b.disabled=false;}});
+   target.querySelectorAll("[data-delete]").forEach(b=>b.onclick=async()=>{if(!confirm("Excluir este lançamento?"))return;b.disabled=true;try{await save("excluir_atendimento",{id:b.dataset.delete});if(target.isConnected){message("Lançamento excluído.");await loadRegistered(target);}}catch(e){message(e.message,true);}finally{b.disabled=false;}});
+  }
+  renderRows();
+ }catch(e){if(target.isConnected)target.textContent=e.message;}
+}
+async function resizePhoto(file){
+ if(!["image/png","image/jpeg","image/webp"].includes(file.type)||file.size>8000000)throw Error("Escolha uma imagem JPEG, PNG ou WebP de até 8 MB.");
+ const image=await createImageBitmap(file);
+ try{
+  const canvas=document.createElement("canvas");canvas.width=canvas.height=128;
+  const side=Math.min(image.width,image.height);
+  canvas.getContext("2d").drawImage(image,(image.width-side)/2,(image.height-side)/2,side,side,0,0,128,128);
+  return canvas.toDataURL("image/jpeg",.72);
+ }finally{image.close();}
+}
+const deleteButton=id=>'<button type="button" data-delete-catalog="'+esc(id)+'">Excluir</button>';
+function bindCatalogDelete(collection, redraw){
+ page.querySelectorAll("[data-delete-catalog]").forEach(button=>button.onclick=async()=>{
+  if(!confirm("Excluir este cadastro?"))return;
+  button.disabled=true;
+  try{
+   const id=button.dataset.deleteCatalog;
+   await save("excluir_cadastro",{cadastro:collection,id});
+   if(collection==="Medicos"&&filters.medico===id)filters.medico="";
+   data=await api("/cadastros");
+   if(button.isConnected){redraw();message("Cadastro excluído.");}
+  }catch(e){if(button.isConnected)message(e.message,true);}
+  finally{button.disabled=false;}
+ });
+}
+function doctorCatalog(row){
+ page.innerHTML='<h2>Cadastros</h2>'+catalogTabs()+'<div class="toolbar"><h3>Profissionais</h3><button class="primary" id="newDoctor">Novo profissional</button></div>'+
+ (row?'<section><h3>'+ (row.id?"Editar profissional":"Cadastrar profissional")+'</h3><form id="doctorForm">'+input("id",row.id,"hidden")+'<div class="fields">'+
+ label("Nome",input("nome",row.nome,"text","required maxlength=200"))+label("CRM",input("registro",row.registro,"text","maxlength=200"))+
+ label("Foto",'<input type="file" name="arquivo" accept="image/jpeg,image/png,image/webp">')+'</div><p>Especialidades</p><div class="specialties">'+
+ data.Especialidades.map(e=>'<label><input type="checkbox" name="especialidades" value="'+esc(e.id)+'" '+(doctorSpecs(row).includes(e.id)?"checked":"")+'>'+esc(e.nome)+'</label>').join("")+
+ '</div><p><label class="inline"><span><input type="checkbox" name="remover" style="width:auto"> Remover foto atual</span></label></p><button class="primary" type="submit">Salvar</button> <button id="cancelDoctor" type="button">Cancelar</button></form></section>':'')+
+ '<div class="doctor-grid">'+data.Medicos.map(d=>'<article class="doctor-card">'+doctorPhoto(d)+'<h3>'+esc(d.nome)+'</h3><small>'+esc(specNames(d))+'</small><small>CRM '+esc(d.registro||"—")+'</small><button class="primary" data-profile="'+esc(d.id)+'">Acessar dashboard</button><button data-edit-doctor="'+esc(d.id)+'">Editar</button>'+deleteButton(d.id)+'</article>').join("")+'</div>';
+ bindCatalogTabs();$("newDoctor").onclick=()=>doctorCatalog({});
+ bindCatalogDelete("Medicos",doctorCatalog);
+ page.querySelectorAll("[data-profile]").forEach(b=>b.onclick=()=>openDoctor(b.dataset.profile));
+ page.querySelectorAll("[data-edit-doctor]").forEach(b=>b.onclick=()=>{doctorCatalog(data.Medicos.find(d=>d.id===b.dataset.editDoctor));window.scrollTo(0,0);});
+ if(row){$("cancelDoctor").onclick=()=>doctorCatalog();const f=$("doctorForm");submit(f,async()=>{
+  const form=new FormData(f), selected=form.getAll("especialidades");
+  if(!selected.length)throw Error("Selecione ao menos uma especialidade.");
+  const p={id:row.id||"",nome:form.get("nome"),registro:form.get("registro"),especialidades:selected};
+  const file=form.get("arquivo");
+  if(file?.size)p.foto=await resizePhoto(file);else if(form.has("remover"))p.foto="";
+  await save("Medicos",p);data=await api("/cadastros");doctorCatalog();
+ });}
+}
+function catalogTabs(){return '<section class="toolbar">'+Object.keys(names).map(t=>'<button data-group="'+t+'" class="'+(t===group?"primary":"")+'">'+names[t]+'</button>').join("")+'<button id="tariffLink">Tarifas</button></section>';}
+function bindCatalogTabs(){page.querySelectorAll("[data-group]").forEach(b=>b.onclick=()=>{group=b.dataset.group;catalog();});$("tariffLink").onclick=()=>navigate("Tarifas");}
+function catalog(row){
+ if(group==="Medicos")return doctorCatalog(row);
+ row=row||{};
+ const tableName=group, rows=data[tableName];
+ page.innerHTML='<h2>Cadastros</h2>'+catalogTabs()+
+ '<section><h3>'+(row.id?"Editar":"Novo cadastro")+'</h3><form id="catalog" class="fields">'+input("id",row.id,"hidden")+label("Nome",input("nome",row.nome,"text","required maxlength=200"))+
+ (tableName==="Medicos"?label("Especialidade",select("especialidade","Especialidades",row.especialidade))+label("CRM",input("registro",row.registro)):"")+
+ (tableName==="Servicos"?label("Valor unitário (R$)",input("unitario",typeof row.unitario==="number"?(row.unitario/100).toFixed(2):"","text",'inputmode=decimal')):"")+(tableName==="Modalidades"?label("Tipo",'<select name="tipo">'+types.map(t=>option(t,t,row.tipo)).join("")+'</select>'):"")+
+ '<button type="submit" class="primary">Salvar</button><button id="clear" type="button">Novo</button></form></section><section>'+table(["Nome",...(tableName==="Medicos"?["Especialidade","CRM"]:tableName==="Modalidades"?["Tipo"]:tableName==="Servicos"?["Valor unitário"]:[]),"Ações"],
+ rows.map(r=>[esc(r.nome),...(tableName==="Modalidades"?[esc(r.tipo)]:tableName==="Servicos"?[typeof r.unitario==="number"?money(r.unitario):"A cadastrar"]:[]),'<button data-edit="'+esc(r.id)+'">Editar</button> '+deleteButton(r.id)]))+'</section>';
+ bindCatalogTabs();
+ bindCatalogDelete(tableName,catalog);
+ page.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>catalog(rows.find(r=>r.id===b.dataset.edit)));
+ page.querySelectorAll("[data-doctor]").forEach(b=>b.onclick=()=>openDoctor(b.dataset.doctor));
+ $("clear").onclick=()=>catalog();
+ const form=$("catalog");
+ submit(form,async()=>{await save(tableName,fields(form));data=await api("/cadastros");catalog();});
+}
+function tariffs(row={}){
+ page.innerHTML='<h2>Tarifas por especialidade</h2><section><p class="hint">Defina o valor bruto unitário para cada combinação de especialidade e modalidade.</p>'+
+ '<form id="tariff" class="fields">'+input("id",row.id,"hidden")+
+ label("Especialidade",select("especialidade","Especialidades",row.especialidade))+
+ label("Modalidade",select("modalidade","Modalidades",row.modalidade))+
+ label("Valor unitário (R$)",input("unitario",row.id?(row.unitario/100).toFixed(2):"","text","inputmode=decimal required"))+
+ '<button type="submit" class="primary">Salvar tarifa</button><button id="clearTariff" type="button">Nova</button></form></section><section>'+
+ table(["Especialidade","Modalidade","Valor unitário","Ações"],data.Tarifas.map(r=>[
+ esc(nameOf("Especialidades",r.especialidade)),esc(nameOf("Modalidades",r.modalidade)),money(r.unitario),
+ '<button data-edit="'+esc(r.id)+'">Editar</button> '+deleteButton(r.id)]))+'</section>';
+ bindCatalogDelete("Tarifas",tariffs);
+ $("clearTariff").onclick=()=>tariffs();
+ page.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>tariffs(data.Tarifas.find(r=>r.id===b.dataset.edit)));
+ const form=$("tariff");
+ submit(form,async()=>{await save("Tarifas",fields(form));data=await api("/cadastros");tariffs();});
+}
+function payment(){
+ page.innerHTML='<h2>Registrar pagamento ao médico</h2><section><p class="hint">O painel contabiliza o pagamento pela data informada. Use a referência para identificar o fechamento.</p><form id="payment" class="fields">'+
+ label("Médico",select("medico","Medicos",filters.medico))+label("Data do pagamento",input("data",today(),"date","required"))+
+ label("Valor pago (R$)",input("valor","","text","required inputmode=decimal"))+label("Referência",input("referencia"))+
+ '<button class="primary" type="submit">Registrar pagamento</button></form></section>';
+ const form=$("payment");submit(form,async()=>{await save("Pagamentos",fields(form));form.reset();});
+}
+async function audit(){
+ page.innerHTML='<h2>Auditoria</h2><p class="hint">Últimos 100 eventos de cada categoria, com horário de São Paulo.</p><div id="auditResult">Carregando…</div>';
+ const target=$("auditResult");
+ try{
+  const result=await api("/auditoria");if(!target.isConnected)return;
+  const dt=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",dateStyle:"short",timeStyle:"medium"});
+  const logs=(items,detail)=>table(["Data e hora","Conta","Ação",...(detail?["Registro"]:[])],items.map(x=>[
+   esc(dt.format(new Date(x.data))),esc(x.conta),esc(x.acao.replaceAll("_"," ")),...(detail?[esc([x.detalhes.tabela,x.detalhes.profissional,x.detalhes.data_atendimento,x.detalhes.registro].filter(Boolean).join(" · "))]:[])]));
+  target.innerHTML='<div class="audit-grid"><section><h3>Acessos</h3>'+logs(result.acessos,false)+'</section><section><h3>Operações do sistema</h3>'+logs(result.operacoes,true)+'</section></div>';
+ }catch(e){if(target.isConnected)target.textContent=location.hostname==="127.0.0.1"?"A auditoria está disponível na versão com login e PostgreSQL.":e.message;}
+}
+async function settings(){
+ page.innerHTML='<h2>Configurações</h2><div id="settingsResult">Carregando…</div>';
+ const target=$("settingsResult");
+ try{
+  const account=await api("/conta");if(!target.isConnected)return;
+  target.innerHTML='<section><h3>Conta administrativa</h3><dl><dt>Nome</dt><dd>'+esc(account.nome)+'</dd><dt>E-mail</dt><dd>'+esc(account.email)+'</dd></dl><button type="button" id="logout">Sair</button></section>'+
+  '<section><h3>Alterar senha</h3><form id="passwordForm" class="fields">'+label("Senha atual",input("atual","","password","required autocomplete=current-password maxlength=128"))+
+  label("Nova senha",input("nova","","password","required autocomplete=new-password minlength=12 maxlength=128"))+
+  label("Confirme a nova senha",input("confirmar","","password","required autocomplete=new-password minlength=12 maxlength=128"))+
+  '<button type="submit" class="primary">Alterar senha</button></form></section>';
+  $("logout").onclick=async()=>{try{await api("/logout",{});location.replace("/login");}catch(e){message(e.message,true);}};
+  const form=$("passwordForm");submit(form,async()=>{const p=fields(form);if(p.nova!==p.confirmar)throw Error("As senhas devem coincidir.");await api("/senha",{atual:p.atual,nova:p.nova});location.replace("/login");});
+ }catch(e){if(target.isConnected)target.textContent=location.hostname==="127.0.0.1"?"A conta administrativa está disponível na versão com login e PostgreSQL.":e.message;}
+}
+
+const symbols={
+ dashboard:"M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z",
+ people:"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M22 21v-2a4 4 0 0 0-3-4 M17 3a4 4 0 0 1 0 8",
+ chart:"M4 20V4 M4 20h16 M9 16v-5 M14 16V7 M19 16V4",
+ plus:"M12 5v14 M5 12h14", document:"M6 3h9l4 4v14H6z M9 11h7 M9 15h7",
+ wallet:"M3 6h18v13H3z M3 10h18 M15 15h3", up:"M3 17l6-6 4 4 7-8 M15 7h5v5",
+ down:"M3 7l6 6 4-4 7 8 M15 17h5v-5", cross:"M4 12h16 M12 4v16"
+};
+const icon=(name,size=18)=>'<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+symbols[name]+'"/></svg>';
+const number=n=>new Intl.NumberFormat("pt-BR").format(n);
+function counts(lines,key,only){
+ const totals=Object.create(null);
+ for(const row of lines){
+  if(only&&row.tipo!==only)continue;
+  const k=key(row);
+  totals[k]=(totals[k]||0)+row.quantidade;
+ }
+ return totals;
+}
+function monthSeries(lines,start,end){
+ const count=counts(lines,r=>r.data.slice(0,7));
+ const first=start.slice(0,7), last=end.slice(0,7), result=[];
+ let [year,month]=first.split("-").map(Number);
+ while(result.length<60){
+  const key=year+"-"+String(month).padStart(2,"0");
+  if(key>last)break;
+  result.push([key,count[key]||0]);
+  if(++month===13){month=1;year++;}
+ }
+ return result;
+}
+const fig=(group,name,ext="svg")=>'<img class="fig-img" alt="" src="assets/'+group+'-'+name+'.'+ext+'">';
+const a=(name,ext)=>fig("cards",name,ext), side=name=>fig("sidebar",name);
+function navMarkup(){
+ const links=[["Dashboard","Painel","imgIcon"],["Registrar Amigo","Registrar","imgUserUserAdd"],["Cadastros","Cadastros","imgUserUserCardId"],["Relatórios","Relatório médico","imgIconFrame"]];
+ const button=([label,target,symbol],secondary=false)=>'<button type="button" data-view="'+esc(target)+'" '+(!secondary&&view===target?'class="active" aria-current="page"':'')+'>'+side(symbol)+esc(label)+'</button>';
+ return '<div class="nav-group">'+links.map(item=>button(item)).join("")+'</div>'+
+ '<div class="nav-divider">'+side("imgLine16")+'Financeiro</div><div class="nav-group">'+
+ [["Dashboard","Financeiro","imgFinanceBank"],links[1],links[2],links[3]].map(item=>button(item,true)).join("")+'</div>'+
+ '<div class="nav-bottom">'+button(["Security","Segurança","imgIcon1"],true)+button(["Settings","Configurações","imgVector"],true)+'</div>';
+}
+
+function barChart(series,evolution){
+ const peak=Math.max(0,...series.map(x=>x[1]));
+ const fmt=new Intl.DateTimeFormat("pt-BR",{month:"short",timeZone:"UTC"});
+ const current=today().slice(0,7);
+ return '<div class="chart-readout" id="chartReadout" aria-live="polite"></div><div class="chart-guide">'+a("imgLine11")+'<strong>'+number(peak)+'</strong></div>'+
+ '<div class="monthly" role="group" aria-label="Quantidade de atendimentos por mês">'+series.map(([m,n])=>{
+  const label=fmt.format(new Date(m+"-01T00:00:00Z")).replace(".","");
+  const title=label+"/"+m.slice(0,4)+" · "+number(n)+" atendimentos · "+money(evolution[m]?.[0]||0)+" faturados";
+  return '<button type="button" class="month" data-month="'+esc(title)+'" aria-label="'+esc(title)+'"'+(m===current?' aria-current="date"':'')+'><span class="bar '+(m===current?'current':'')+'" style="height:'+Math.round(100*n/(peak||1))+'%"></span><small>'+esc(label)+'</small></button>';
+ }).join("")+'</div>';
+}
+function delta(current,previous){
+ if(!previous)return "";
+ const pct=(current-previous)*100/previous;
+ const value=new Intl.NumberFormat("pt-BR",{maximumFractionDigits:2,signDisplay:"always"}).format(pct);
+ return '<span class="trend-tag '+(pct<0?'down':'')+'" title="Comparação com o período anterior">'+a("imgArrowDropUp")+esc(value)+'%</span>';
+}
+function miniList(rows,free=false){
+ const assets=[a("imgIcon"),'<span class="overlay">'+a("imgElectricCar")+'<span class="overlay">'+a(free?"imgGroup5":"imgGroup")+'</span></span>',a("imgIcon1"),a("imgIcon")];
+ return rows.length?'<div class="mini-list">'+rows.map(([name,count],i)=>'<div class="mini-row '+(free&&i===1?'orange':'')+'"><span class="list-icon">'+(i%4===1?a("imgIconBackground"):"")+assets[i%4]+'</span><div><strong>'+esc(name)+'</strong><small>total</small></div><span class="row-value">'+number(count)+'</span></div>').join("")+'</div>':'<p class="dash-empty mini-list">Sem registros no período.</p>';
+}
+function dashboard(r,previous,showAll){
+ const total=Object.values(r.contagem).reduce((sum,n)=>sum+n,0);
+ const sameYear=filters.inicio.slice(0,4)===filters.fim.slice(0,4);
+ const chartStart=sameYear?filters.inicio.slice(0,4)+"-01-01":filters.inicio;
+ const chartEnd=sameYear?filters.fim.slice(0,4)+"-12-31":filters.fim;
+ const monthly=monthSeries(r.linhas,chartStart,chartEnd).slice(-12);
+ const privateMonthly=monthSeries(r.linhas.filter(x=>x.tipo==="Particular"),filters.inicio,filters.fim).slice(-7);
+ const mini=monthSeries(r.linhas,filters.inicio,filters.fim).slice(-5);
+ const max=Math.max(1,...privateMonthly.map(x=>x[1])), miniMax=Math.max(1,...mini.map(x=>x[1]));
+ const insured=Object.entries(counts(r.linhas,x=>x.modalidade_nome,"Convênio")).sort((x,y)=>y[1]-x[1]);
+ const list=showAll?r.ranking:r.ranking.slice(0,3);
+ const avatars=["imgAvatar","imgAvatar1","imgAvatar2"];
+ const ranks=list.map(([id,n],i)=>{
+  const name=nameOf("Medicos",id), doctor=data.Medicos.find(d=>d.id===id), dates=r.linhas.filter(x=>x.medico===id);
+  const last=dates.reduce((day,x)=>x.data>day?x.data:day,"");
+  const initials=name.split(" ").slice(0,2).map(w=>w[0]).join("").toUpperCase();
+  return '<button class="rank-row" data-doctor="'+esc(id)+'"><span class="avatar">'+(doctor?.foto?doctorPhoto(doctor):(["Marina Almeida","Rafael Nogueira","Bianca Castro"].includes(name))&&avatars[i]?a(avatars[i],"png").replace(' alt=""',' width="32" height="34" alt=""'):esc(initials))+'</span><span><strong>'+esc(name)+'</strong><small>'+esc(last?"Atualizado "+dateLabel(last):"")+'</small></span><span class="row-value">'+number(n)+'</span></button>';
+ }).join("");
+ const free=(r.contagem.Retorno||0)+(r.contagem.Cortesia||0);
+ const pastFree=previous?(previous.Retorno||0)+(previous.Cortesia||0):null;
+ const kpi=(label,value,graphic="",detail="")=>'<article class="dash-card dash-kpi">'+graphic+'<div class="kpi-text"><div class="dash-label">'+esc(label)+'</div><strong>'+esc(value)+'</strong></div>'+detail+'</article>';
+ const people='<div class="kpi-icon">'+a("imgShadow")+'<div class="kpi-overlay"><div class="shape">'+a("imgIcon3")+["imgGroup1","imgGroup2","imgGroup3","imgGroup4"].map((name,i)=>'<span style="position:absolute;left:'+([18,7,20,2][i])+'px;top:'+([4,3,15,16][i])+'px">'+a(name)+'</span>').join("")+'</div></div></div>';
+ const iconBox=name=>'<div class="kpi-icon">'+a(name)+'</div>';
+ const spark='<div class="spark">'+a("imgGraph")+'</div>';
+ const sparkMini='<div class="spark-mini" aria-hidden="true">'+mini.map(x=>'<span><i style="height:'+Math.round(x[1]*100/miniMax)+'%"></i></span>').join("")+'</div>';
+ const bottom=(label,value,badge,body)=>'<section class="dash-card"><div class="dash-label bottom-label">'+esc(label)+'</div><div class="dash-number bottom-number">'+number(value)+'</div>'+badge+body+'</section>';
+ return '<div class="dash-grid"><div class="dash-top">'+kpi("Atendimentos",number(total),people,spark)+kpi("Média por atendimento",money(r.media),"",sparkMini)+kpi("Repasse do período",money(r.repasse),iconBox("imgIcon2"))+kpi("Parcela da clínica",money(r.clinica),iconBox("imgIcon4"))+'</div>'+
+ '<div class="dash-mid"><section class="dash-card"><div class="dash-label chart-title">Evolução mensal de atendimentos</div><div class="chart-value"><strong class="dash-number">'+number(total)+'</strong><span class="chart-caption">soma '+(filters.inicio.endsWith("-01-01")&&sameYear?"do ano até o momento":"do período")+'</span></div><div class="chart-icon">'+a("imgBarChart")+'</div>'+barChart(monthly,r.evolucao)+'</section>'+
+ '<section class="dash-card rank-card"><h3>Ranking de atendimentos</h3><div class="rank-list">'+(ranks||'<p class="dash-empty">Sem atendimentos no período.</p>')+'</div>'+(r.ranking.length>3?'<div class="rank-footer"><button id="rankToggle">'+(showAll?'Ver menos':'Ver todos')+'<span class="rank-arrow">'+a("imgKeyboardBackspace")+'</span></button></div>':'')+'</section></div>'+
+ '<div class="dash-bottom">'+bottom("Particulares",r.contagem.Particular,delta(r.contagem.Particular,previous?.Particular),'<div class="micro" aria-label="Particulares por mês">'+privateMonthly.map(([m,n])=>'<span title="'+esc(m+': '+number(n))+'"><i style="height:'+Math.round(n*100/max)+'%"></i></span>').join("")+'</div>')+
+ bottom("Convenio",r.contagem["Convênio"],delta(r.contagem["Convênio"],previous?.["Convênio"]),miniList(insured))+
+ bottom("Retorno / Cortesia",free,delta(free,pastFree),miniList([["Retorno",r.contagem.Retorno],["Cortesia",r.contagem.Cortesia]],true))+'</div></div>';
+}
+
+
+async function overview(){
+ const selected=filters.medico;
+ const start=filters.inicio||today().slice(0,4)+"-01-01", end=filters.fim||today();
+ filters={...filters,inicio:start,fim:end};
+ const dateField=(name,prefix,value)=>'<label>'+prefix+' <span>'+dateLabel(value)+'</span>'+input(name,value,"date","required aria-label="+(name==="inicio"?"Inicial":"Final"))+'</label>';
+ page.innerHTML='<div class="dash-header"><div><span class="eyebrow">Bem vindo de volta</span><h2>'+esc(selected?nameOf("Medicos",selected):"Dashboard")+'</h2></div><form id="v2Filter" class="period no-print">'+
+ input("medico",selected,"hidden")+dateField("inicio","de",start)+dateField("fim","à",end)+
+ '<button type="submit">Aplicar</button></form></div>'+(selected?'<div class="profile-tools no-print"><button id="clearDoctor">← Visão geral</button> <button id="editProfile">Editar profissional</button></div>':'')+'<div id="overviewResult" aria-live="polite"><p class="dash-empty">Carregando dashboard…</p></div>';
+ const target=$("overviewResult"), clear=$("clearDoctor");
+ if(clear){clear.onclick=()=>openDoctor(""); $("editProfile").onclick=()=>{group="Medicos";navigate("Cadastros");catalog(data.Medicos.find(d=>d.id===selected));};}
+ $("v2Filter").querySelectorAll('input[type="date"]').forEach(el=>{
+  el.oninput=()=>{if(el.value)el.previousElementSibling.textContent=dateLabel(el.value);};
+  el.onclick=()=>{try{el.showPicker?.();}catch{}};
+ });
+ $("v2Filter").onsubmit=e=>{
+  e.preventDefault();const next=fields(e.currentTarget);
+  if(next.inicio>next.fim){message("A data inicial deve ser anterior à final.",true);return;}
+  filters=next;message();overview().catch(e=>message(e.message,true));
+ };
+ const params=new URLSearchParams(filters);
+ const a=Date.parse(start), b=Date.parse(end), dayMs=86400000;
+ const iso=t=>new Date(t).toISOString().slice(0,10);
+ const previousQuery=new URLSearchParams({medico:selected,inicio:iso(a-(b-a)-dayMs),fim:iso(a-dayMs)});
+ const [r,prior]=await Promise.all([api("/painel?"+params),api("/painel?"+previousQuery)]);
+ if(!target.isConnected)return;
+ let showAll=false;
+ const pages={};
+ function draw(){
+  target.innerHTML=dashboard(r,prior.contagem,showAll)+'<section class="dash-card secondary-panel"><div class="dash-head"><div><div class="dash-label">Faturamento bruto</div><div class="dash-number">'+esc(money(r.total))+'</div></div><div><div class="dash-label">Valor efetivamente pago</div><strong>'+esc(money(r.pago))+'</strong></div><button class="dash-action no-print" id="printSummary">Abrir relatório de repasses</button></div>'+
+  (selected?'<div class="secondary-panel"><h3>Atendimentos de '+esc(nameOf("Medicos",selected))+'</h3>'+lines(r,pages)+'</div>':'')+'</section>';
+  const toggle=$("rankToggle");if(toggle)toggle.onclick=()=>{showAll=!showAll;draw();$("rankToggle").focus();};
+  $("printSummary").onclick=()=>navigate("Relatório médico");
+  bindPages(target,pages,draw);
+  const readout=$("chartReadout");
+  target.querySelectorAll("[data-month]").forEach(b=>{
+   const show=()=>{readout.textContent=b.dataset.month;};
+   const clear=()=>{if(readout.textContent===b.dataset.month)readout.textContent="";};
+   b.onmouseenter=b.onfocus=b.onclick=show;
+   b.onmouseleave=b.onblur=clear;
+  });
+  target.querySelectorAll("[data-doctor]").forEach(el=>el.onclick=()=>openDoctor(el.dataset.doctor));
+ }
+ draw();
+}
+
+
+api("/cadastros").then(result=>{data=result;navigate("Painel");}).catch(e=>message(e.message,true));
+</script></html>
+
+
+
+
+
+
+
+
